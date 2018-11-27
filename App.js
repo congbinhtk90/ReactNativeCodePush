@@ -9,6 +9,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View,TouchableOpacity,Alert} from 'react-native';
 import codePush from "react-native-code-push";
+import { camera } from "react-native-camera";
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -24,21 +25,34 @@ export default class App extends Component<Props> {
   onButtonPress(){
     console.log("AAAAAAAAAAA");
     codePush.sync({
-      updateDialog: true,
+      updateDialog: false,
       installMode: codePush.InstallMode.IMMEDIATE
     });
   }
+
+  takePicture() { 
+      camera.capture() .then((data) => 
+        console.log(data)
+      ) 
+      .catch(err => 
+        console.error(err)
+      ); 
+    }
   
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!AAAAAAAAAAAAAAAAAA</Text>
+        <Text style={styles.welcome}>Welcome to React Native!FFFFFFFFFFF</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
 
         <TouchableOpacity onPress={this.onButtonPress}>
           <Text>Check for updates</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={this.takePicture}>
+          <Text>Camera</Text>
         </TouchableOpacity>
       </View>
     );
